@@ -1,0 +1,10 @@
+<h1>Dummy</h1>
+
+<%= render_dismissible_block 'lorem' do %>
+  <div class="block" data-dismissible>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vitae.</p>
+    <p><a href="#" data-dismissible-hide>Hide</a></p>
+  </div>
+<% end %>
+
+<p><%= link_to 'Logout', logout_path %></p>
