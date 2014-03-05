@@ -5,6 +5,7 @@ require 'dismissible_blocks/version'
 Gem::Specification.new do |s|
   s.name        = 'dismissible_blocks'
   s.version     = DismissibleBlocks::VERSION
+  s.platform    = Gem::Platform::RUBY
   s.authors     = ['Patrick Bougie']
   s.email       = ['hello@patrickbougie.com']
   s.summary     = 'Dismissible HTML blocks for Ruby on Rails'
