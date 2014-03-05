@@ -1,0 +1,9 @@
+one:
+  username: john
+  password: lorem
+  dismissed_blocks:
+
+two:
+  username: mike
+  password: ipsum
+  dismissed_blocks: ['lorem']
