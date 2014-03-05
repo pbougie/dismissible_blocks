@@ -1,22 +1,26 @@
-$:.push File.expand_path("../lib", __FILE__)
+$:.push File.expand_path('../lib', __FILE__)
 
-# Maintain your gem's version:
-require "dismissible_blocks/version"
+require 'dismissible_blocks/version'
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "dismissible_blocks"
+  s.name        = 'dismissible_blocks'
   s.version     = DismissibleBlocks::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of DismissibleBlocks."
-  s.description = "TODO: Description of DismissibleBlocks."
+  s.authors     = ['Patrick Bougie']
+  s.email       = ['hello@patrickbougie.com']
+  s.summary     = 'Dismissible HTML blocks for Ruby on Rails'
+  s.description = 'Dismiss HTML blocks and save state in the database. Engine for Ruby on Rails.'
+  s.homepage    = 'https://github.com/pbougie/dismissible_blocks'
+  s.license     = 'MIT'
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.files = Dir['{app,config,lib}/**/*', 'Gemfile', 'Rakefile', 'README.markdown', 'LICENSE.text']
+  s.test_files = Dir['test/**/*']
 
-  s.add_dependency "rails", "~> 4.0.3"
+  s.add_runtime_dependency 'rails', '>= 3.2'
+  s.add_runtime_dependency 'jquery-rails'
 
-  s.add_development_dependency "sqlite3"
+  s.add_development_dependency 'bundler'
+  s.add_development_dependency 'rake'
+  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'selenium-webdriver'
 end
