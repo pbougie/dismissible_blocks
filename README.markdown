@@ -1,7 +1,7 @@
 # DismissibleBlocks
 
 ## Overview
-**DismissibleBlocks** is a Ruby on Rails engine that allows for dismissible blocks of HTML code whose state is saved in the database per user.
+[DismissibleBlocks](https://github.com/pbougie/dismissible_blocks) is a simple gem for [Ruby on Rails](http://rubyonrails.org/) projects to add blocks of content to a webpage that can be dismissed by the user. Dismissed blocks are remembered and persisted to the database using [Ajax](https://en.wikipedia.org/wiki/Ajax_%28programming%29). DismissibleBlocks is ORM agnostic and works with MySQL, PostgreSQL, MongoDB, etc.
 
 
 ## Installation
@@ -26,36 +26,9 @@ Install it yourself:
     $ gem install dismissible_blocks
 
 
-## Usage
+## Configuration
 ### Routes
 DismissibleBlocks automatically adds the required routes when the gem is added to your project.
-
-### Views
-Adding dismissible blocks of HTML code is very easy. DismissibleBlocks does not generate any extra HTML and therefore gives you complete control over your code.
-
-To add a dismissible block to a view, use the `render_dismissible_block` helper method. This will create a dismissible block named `lorem`:
-
-	<%= render_dismissible_block 'lorem' do %>
-	  ...
-	<% end %>
-
-This alone isn't enough, you need to identify the container and button HTML. This is done using HTML5 `data-` attributes. There are two attributes that you must add to the HTML to make everything work as expected:
-
-1. `data-dismissible`: attribute for the container of the HTML block.
-2. `data-dismissible-hide`: attribute for the button to hide the HTML block.
-
-For example:
-
-	<%= render_dismissible_block 'lorem' do %>
-	  <div data-dismissible>
-	    <p>...</p>
-	    <a href="#" data-dismissible-hide>Hide</a>
-	  </div>
-	<% end %>
-
-Also make sure the [Cross-Site Request Forgery](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf) (CSRF) token is included in your layout:
-
-	<%= csrf_meta_tags %>
 
 ### JavaScript
 Add the following JavaScript to `app/assets/javascripts/application.js`.
@@ -79,11 +52,29 @@ If you want to customize how a block of HTML is hidden using — for example —
 	  });
 	});
 
+### Helper
+DismissibleBlocks uses the `current_user` helper method to access the current user/account. Make sure the helper method is also available in your views:
+
+    def current_user
+      ...
+    end
+    helper_method :current_user
+    
+By default, DismissibleBlocks saves the state to the database using the `current_user` helper method. If your user/account helper method is named something else — for example `current_employee`:
+
+	def current_employee
+	  ...
+	end
+    helper_method :current_employee
+
+Use `alias_method` to create an alias to your helper method; don't forget to also include `helper_method` to make your helper available from your views:
+
+	alias_method :current_user, :current_employee
+    helper_method :current_user
+
 ### Model
+The state of each block is persisted to the database using a model that responds to `current_user`. The model must have an attribute named `dismissed_blocks` and be of type _Array_.
 
-DismissibleBlocks saves the dismissed blocks on a model. It uses the `current_user` helper method to access the current user/account.
-
-The model must have an attributed named `dismissed_blocks` and be of type Array.
 
 #### ActiveRecord
 ActiveRecord's serialization feature can achieve this. First, create a database migration to add the required field:
@@ -122,18 +113,38 @@ To add MongoDB support using [Mongoid](mongoid.org), add this to the user/accoun
 
 	field :dismissed_blocks, type: Array, default: []
 
-#### Helper Method Not `current_user`
-By default, DismissibleBlocks saves the state to the database using the `current_user` helper method. If your user/account helper method is named something else — for example `current_employee`:
 
-	def current_employee
+## Usage
+Adding dismissible blocks of content is very easy. DismissibleBlocks does not generate any extra HTML and therefore gives you complete control over your code.
+
+To add a dismissible block to a view, use the `render_dismissible_block` helper method. This will create a dismissible block named `lorem`:
+
+	<%= render_dismissible_block 'lorem' do %>
 	  ...
-	end
-    helper_method :current_employee
+	<% end %>
 
-Use `alias_method` to create an alias to your helper method; don't forget to also include `helper_method` to make your helper available from your views:
+This alone isn't enough, you need to identify the container and button HTML. This is done using HTML5 `data-` attributes. There are two attributes that you must add to the HTML to make everything work as expected:
 
-	alias_method :current_user, :current_employee
-    helper_method :current_user
+1. `data-dismissible`: attribute for the container of the content.
+2. `data-dismissible-hide`: attribute for the button to hide the content.
+
+For example:
+
+	<%= render_dismissible_block 'lorem' do %>
+	  <div data-dismissible>
+	    <p>...</p>
+	    <a href="#" data-dismissible-hide>Hide</a>
+	  </div>
+	<% end %>
+
+Also make sure the [Cross-Site Request Forgery](http://guides.rubyonrails.org/security.html#cross-site-request-forgery-csrf) (CSRF) token is included in your layout:
+
+	<%= csrf_meta_tags %>
+
+
+## Links
+[RubyGems.org](https://rubygems.org/gems/dismissible_blocks)
+
 
 ## Author
 [Patrick Bougie](http://patrickbougie.com/)
