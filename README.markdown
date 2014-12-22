@@ -141,6 +141,14 @@ Also make sure the [Cross-Site Request Forgery](http://guides.rubyonrails.org/se
 
 	<%= csrf_meta_tags %>
 
+If for some reason you need to override something for only the DismissibleBlocks controller, the `dismissible_blocks_controller?` convenience method is available.
+
+	class ApplicationController < ActionController::Base
+	  ...
+	  before_action :some_method
+	  skip_before_action :some_method, if: :dismissible_blocks_controller?
+	end
+
 
 ## Links
 [RubyGems.org](https://rubygems.org/gems/dismissible_blocks)
