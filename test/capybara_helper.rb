@@ -3,6 +3,7 @@ require 'capybara/rails'
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
+  self.fixture_path = File.expand_path('../fixtures', __FILE__)
 
   def login(user)
     visit login_path
