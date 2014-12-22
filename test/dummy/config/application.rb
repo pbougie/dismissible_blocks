@@ -6,5 +6,8 @@ require 'dismissible_blocks'
 
 module Dummy
   class Unauthorized < StandardError; end
-  class Application < Rails::Application; end
+
+  class Application < Rails::Application
+    config.active_record.raise_in_transactional_callbacks = true
+  end
 end
