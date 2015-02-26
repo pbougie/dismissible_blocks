@@ -47,7 +47,27 @@ class DismissibleBlocksHelperTest < ActionView::TestCase
     block += '</div>'
     def self.current_user; users(:one); end
     html = render_dismissible_block('lorem') { block.html_safe }
-    assert html.include? "data-dismissible='lorem'"
-    assert html.include? "data-dismissible-hide='lorem'"
+    assert_includes html, "data-dismissible='lorem'"
+    assert_includes html, "data-dismissible-hide='lorem'"
+  end
+
+  test "does not modify data attributes that already have values" do
+    block  = "<div data-dismissible='ipsum'>"
+    block += "<span data-dismissible-hide='ipsum'></span>"
+    block += "</div>"
+    def self.current_user; users(:one); end
+    html = render_dismissible_block('lorem') { block.html_safe }
+    assert_includes html, "data-dismissible='ipsum'"
+    assert_includes html, "data-dismissible-hide='ipsum'"
+  end
+
+  test "yields name to the content block" do
+    def self.current_user; users(:one); end
+    passed_name = nil
+    render_dismissible_block('lorem') do |name|
+      passed_name = name
+      'ipsum'
+    end
+    assert_equal 'lorem', passed_name
   end
 end
