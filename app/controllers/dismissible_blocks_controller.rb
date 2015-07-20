@@ -1,5 +1,5 @@
 class DismissibleBlocksController < ApplicationController
-  allows_access_to :anonymous_users
+  allows_access_to :all_authenticated_users
   def create
     if current_user_available
       current_user.dismissed_blocks += [ params[:block].to_s ]
