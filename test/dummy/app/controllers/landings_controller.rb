@@ -1,5 +1,5 @@
 class LandingsController < ApplicationController
-  before_filter :check_authentication
+  before_action :check_authentication
 
   def show
   end
