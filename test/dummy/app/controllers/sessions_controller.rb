@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_filter :check_authentication, only: :destroy
+  before_action :check_authentication, only: :destroy
 
   def new
     if authenticated?

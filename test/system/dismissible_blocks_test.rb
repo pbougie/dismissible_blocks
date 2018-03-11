@@ -1,9 +1,6 @@
-require 'capybara_helper'
+require 'application_system_test_case'
 
-class DismissibleBlocksTest < ActionDispatch::IntegrationTest
-  setup do
-    Capybara.current_driver = Capybara.javascript_driver
-  end
+class DismissibleBlocksTest < ApplicationSystemTestCase
 
   test "block is displayed and dismissed" do
     login users(:one)
@@ -18,4 +15,5 @@ class DismissibleBlocksTest < ActionDispatch::IntegrationTest
     assert page.has_no_selector? '.block'
     logout
   end
+
 end

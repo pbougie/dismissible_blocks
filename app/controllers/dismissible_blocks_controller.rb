@@ -3,9 +3,9 @@ class DismissibleBlocksController < ApplicationController
     if current_user_available
       current_user.dismissed_blocks += [ params[:block].to_s ]
       current_user.save!
-      render :json => {}, :status => :ok
+      render json: {}, status: :ok
     else
-      render :json => {}, :status => :unprocessable_entity
+      render json: {}, status: :unprocessable_entity
     end
   end
 

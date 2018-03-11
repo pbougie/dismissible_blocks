@@ -27,7 +27,7 @@ module DismissibleBlocksHelper
     end
 
     def add_block_name_to_attributes(contents, name)
-      contents.gsub! /(data-dismissible)(-hide)?(?![-=])/, "\\1\\2='#{name}'"
+      contents.gsub!(/(data-dismissible)(-hide)?(?![-=])/, "\\1\\2='#{name}'")
       contents.html_safe
     end
 end

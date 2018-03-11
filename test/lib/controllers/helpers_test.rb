@@ -11,4 +11,5 @@ class DismissibleBlocks::Controllers::HelpersTest < ActionController::TestCase
     controller = SessionsController.new
     refute controller.send(:dismissible_blocks_controller?)
   end
+
 end

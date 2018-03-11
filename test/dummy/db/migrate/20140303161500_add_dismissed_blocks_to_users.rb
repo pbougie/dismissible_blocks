@@ -1,4 +1,4 @@
-class AddDismissedBlocksToUsers < ActiveRecord::Migration
+class AddDismissedBlocksToUsers < ActiveRecord::Migration[5.1]
   def up
     add_column :users, :dismissed_blocks, :text
   end
