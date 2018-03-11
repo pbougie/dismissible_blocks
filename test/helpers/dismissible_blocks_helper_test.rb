@@ -70,4 +70,5 @@ class DismissibleBlocksHelperTest < ActionView::TestCase
     end
     assert_equal 'lorem', passed_name
   end
+
 end
