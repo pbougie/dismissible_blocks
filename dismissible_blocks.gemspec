@@ -13,8 +13,12 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/pbougie/dismissible_blocks'
   s.license     = 'MIT'
 
-  s.files = Dir['{app,config,lib}/**/*', 'Gemfile', 'Rakefile', 'README.markdown', 'LICENSE.text']
-  s.test_files = Dir['test/**/*']
+  s.files = Dir[
+    '{app,config,lib}/**/*',
+    'dismissible_blocks.gemspec',
+    'README.md',
+    'LICENSE.txt'
+  ]
 
   s.add_runtime_dependency 'rails', '>= 3.2'
   s.add_runtime_dependency 'jquery-rails'
