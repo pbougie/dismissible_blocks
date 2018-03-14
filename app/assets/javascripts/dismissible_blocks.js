@@ -1,37 +1,40 @@
 (function() {
-  (function($) {
 
-    $.fn.dismissible = function(options) {
-      return this.each(function() {
-        var _this = $(this);
-        $('[data-dismissible-hide]', this).click(function(event) {
-          event.preventDefault();
-          return _this.dismiss(options);
-        })
-      });
+  NodeList.prototype.dismissible = function(options) {
+    this.forEach(function(el) {
+      el.dismissible(options);
+    });
+  }
+
+  HTMLElement.prototype.dismissible = function(options) {
+    this.querySelector('[data-dismissible-hide]').addEventListener('click', function(event) {
+      event.preventDefault();
+      this.dismiss(options);
+    });
+  }
+
+  HTMLElement.prototype.dismiss = function(options) {
+    var block_name = this.getAttribute('data-dismissible-hide');
+    var block = document.querySelector('[data-dismissible=' + block_name + ']');
+    var csrf = document.querySelector('meta[name=csrf-token]');
+    var token = csrf != null ? csrf.getAttribute('content') : null;
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('PUT', '/dismissible_blocks.json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        if (options !== undefined && options.dismiss !== undefined) {
+          return options.dismiss(block);
+        } else {
+          return block.remove();
+        }
+      }
     };
+    xhr.send(JSON.stringify({
+      block: block_name,
+      authenticity_token: token
+    }));
+  }
 
-    return $.fn.dismiss = function(options) {
-      return $.ajax({
-        type: 'POST',
-        url: '/dismissible_blocks.json',
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify({
-          block: $(this).attr('data-dismissible'),
-          authenticity_token: $('meta[name=csrf-token]').attr('content')
-        }),
-        success: (function(_this) {
-          return function() {
-            if ((options != null) && options.dismiss !== void 0) {
-              return options.dismiss(_this);
-            } else {
-              return $(_this).remove();
-            }
-          }
-        })(this)
-      });
-    };
-
-  })(jQuery);
-}).call(this);
+})();
