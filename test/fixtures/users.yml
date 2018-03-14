@@ -6,4 +6,4 @@ one:
 two:
   username: mike
   password: ipsum
-  dismissed_blocks: ['lorem']
+  dismissed_blocks: ['lorem', 'ipsum']
