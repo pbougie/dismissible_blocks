@@ -2,17 +2,28 @@ require 'application_system_test_case'
 
 class DismissibleBlocksTest < ApplicationSystemTestCase
 
-  test "block is displayed and dismissed" do
+  test "two blocks are displayed; one is dismissed" do
     login users(:one)
-    assert page.has_selector? '.block'
-    click_on 'Hide'
-    assert page.has_no_selector? '.block'
+    page.assert_selector('[data-dismissible=lorem]', count: 1)
+    page.assert_selector('[data-dismissible=ipsum]', count: 1)
+    first('[data-dismissible-hide]').click
+    page.assert_selector('[data-dismissible=lorem]', count: 0)
+    page.assert_selector('[data-dismissible=ipsum]', count: 1)
     logout
   end
 
-  test "block is not displayed; already dismissed" do
+  test "two blocks are displayed; both dismissed" do
+    login users(:one)
+    page.assert_selector('[data-dismissible]', count: 2)
+    first('[data-dismissible-hide]').click
+    first('[data-dismissible-hide]').click
+    page.assert_no_selector('[data-dismissible]')
+    logout
+  end
+
+  test "blocks are not displayed; already dismissed" do
     login users(:two)
-    assert page.has_no_selector? '.block'
+    page.assert_no_selector('[data-dismissible]')
     logout
   end
 

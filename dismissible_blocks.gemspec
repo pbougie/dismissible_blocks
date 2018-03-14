@@ -20,8 +20,9 @@ Gem::Specification.new do |s|
     'LICENSE.txt'
   ]
 
+  s.post_install_message = 'DismissibleBlocks 2+ removed jQuery as a dependency. See README.'
+
   s.add_runtime_dependency 'rails', '>= 3.2'
-  s.add_runtime_dependency 'jquery-rails'
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'rake'

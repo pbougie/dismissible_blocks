@@ -11,7 +11,7 @@ class DismissibleBlocksControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to landing_url
     refute users(:one).dismissed_blocks.include?('lorem')
 
-    post dismissible_blocks_url(format: :json),
+    put dismissible_blocks_url(format: :json),
       params: { block: 'lorem' },
       xhr: true
     users(:one).reload
@@ -20,7 +20,7 @@ class DismissibleBlocksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "dismiss block fails via ajax; not logged in" do
-    post dismissible_blocks_url(format: :json),
+    put dismissible_blocks_url(format: :json),
       params: { block: 'lorem' },
       xhr: true
     assert_response :unprocessable_entity

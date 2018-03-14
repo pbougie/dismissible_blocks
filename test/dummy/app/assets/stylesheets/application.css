@@ -2,7 +2,7 @@
  *= require_self
  */
 
-.flash, .block {
+.flash, [data-dismissible] {
   border: 2px solid #333;
   padding: 10px 20px;
   background-color: #eee;

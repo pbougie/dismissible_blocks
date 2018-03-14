@@ -3,13 +3,13 @@
 ## Overview
 [DismissibleBlocks](https://github.com/pbougie/dismissible_blocks) is a simple gem for [Ruby on Rails](http://rubyonrails.org/) projects to add blocks of content to a webpage that can be dismissed by the user. Dismissed blocks are remembered and persisted to the database using [Ajax](https://en.wikipedia.org/wiki/Ajax_%28programming%29). DismissibleBlocks is ORM agnostic and works with MySQL, PostgreSQL, MongoDB, etc.
 
+> **WARNING:** DismissibleBlocks 2+ removed jQuery as a dependency. If you are not using the loader, you will have to make changes to your code. See examples below.
 
 ## Installation
 ### Requirements
-The DismissibleBlocks gem has the following requirements:
+The DismissibleBlocks gem has the following requirement:
 
 - [Ruby on Rails](http://rubyonrails.org/) 3.2 or above
-- [jQuery](http://jquery.com/)
 
 ### Gemfile
 Add the following line to your application's Gemfile:
@@ -35,22 +35,24 @@ Add the following JavaScript to `app/assets/javascripts/application.js`.
 
 In its simplest form, you can require all the needed JavaScript using:
 
-	//= require jquery
 	//= require dismissible_blocks
 	//= require dismissible_blocks_loader
 
 If you want to customize how a block of HTML is hidden using — for example — a slide up effect, you can customize the JavaScript like so:
 
-	//= require jquery
 	//= require dismissible_blocks
-	
-	$(document).ready(function() {
-	  $('[data-dismissible]').dismissible({
+
+	document.addEventListener('DOMContentLoaded', function() {
+	  document.querySelectorAll('[data-dismissible]').dismissible({
 	    dismiss: function(helper) {
-	      helper.slideUp();
+	      helper.slideUp().then(function(el) {
+	        el.remove();
+	      });
 	    }
 	  });
 	});
+
+**Note:** The above example is using the `slideUp()` method from the [dom-slider](https://github.com/BrentonCozby/dom-slider) JavaScript library by Brenton Cozby.
 
 ### Helper
 DismissibleBlocks uses the `current_user` helper method to access the current user/account. Make sure the helper method is also available in your views:
@@ -59,7 +61,7 @@ DismissibleBlocks uses the `current_user` helper method to access the current us
       ...
     end
     helper_method :current_user
-    
+
 By default, DismissibleBlocks saves the state to the database using the `current_user` helper method. If your user/account helper method is named something else — for example `current_employee`:
 
 	def current_employee
@@ -83,7 +85,7 @@ ActiveRecord's serialization feature can achieve this. First, create a database 
 	  def up
 	    add_column :users, :dismissed_blocks, :text
 	  end
-	
+
 	  def down
 	    remove_column :users, :dismissed_blocks
 	  end
@@ -102,7 +104,7 @@ If you are using [PostgreSQL](http://www.postgresql.org/) with native array supp
 	  def up
 	    add_column :users, :dismissed_blocks, :string, :array => true
 	  end
-	
+
 	  def down
 	    remove_column :users, :dismissed_blocks
 	  end
