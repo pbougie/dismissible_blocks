@@ -1,8 +1,10 @@
 class DismissibleBlocksController < ApplicationController
   def create
     if current_user_available
-      current_user.dismissed_blocks += [ params[:block].to_s ]
-      current_user.save!
+      unless current_user.dismissed_blocks.include?(block)
+        current_user.dismissed_blocks.push(block)
+        current_user.save!
+      end
       render json: {}, status: :ok
     else
       render json: {}, status: :unprocessable_entity
@@ -13,5 +15,9 @@ class DismissibleBlocksController < ApplicationController
 
     def current_user_available
       respond_to?(:current_user) && current_user.respond_to?(:dismissed_blocks)
+    end
+
+    def block
+      params[:block].to_s
     end
 end
