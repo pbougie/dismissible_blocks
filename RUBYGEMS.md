@@ -9,7 +9,7 @@ Build the DismissibleBlocks gem:
     gem build dismissible_blocks.gemspec
 
 
-### Push
+### Push to RubyGems
 Push the DismissibleBlocks gem to [RubyGems.org](https://rubygems.org/):
 
     gem push dismissible_blocks-<VERSION>.gem
@@ -21,6 +21,12 @@ Enter your [RubyGems.org](https://rubygems.org/) credentials if required.
 Tag the version number in the Git repository:
 
     git tag -a v<VERSION> -m "Version <VERSION>"
+
+
+### Push to GitHub
+Push commits & tags to [GitHub](https://github.com/):
+
+    git push origin --follow-tags
 
 
 --
