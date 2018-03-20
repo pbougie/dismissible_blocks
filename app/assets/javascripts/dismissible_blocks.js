@@ -27,7 +27,7 @@
         if (options !== undefined && options.dismiss !== undefined) {
           return options.dismiss(block);
         } else {
-          return block.remove();
+          return block.parentNode.removeChild(block);
         }
       }
     };
