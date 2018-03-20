@@ -1,9 +1,9 @@
 (function() {
 
   NodeList.prototype.dismissible = function(options) {
-    this.forEach(function(el) {
-      el.dismissible(options);
-    });
+    for (var i = 0; i < this.length; i++) {
+      this[i].dismissible(options);
+    }
   }
 
   HTMLElement.prototype.dismissible = function(options) {
@@ -27,7 +27,7 @@
         if (options !== undefined && options.dismiss !== undefined) {
           return options.dismiss(block);
         } else {
-          return block.remove();
+          return block.parentNode.removeChild(block);
         }
       }
     };
