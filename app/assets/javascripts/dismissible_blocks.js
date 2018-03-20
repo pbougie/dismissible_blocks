@@ -7,10 +7,13 @@
   }
 
   HTMLElement.prototype.dismissible = function(options) {
-    this.querySelector('[data-dismissible-hide]').addEventListener('click', function(event) {
-      event.preventDefault();
-      this.dismiss(options);
-    });
+    var hide = this.querySelector('[data-dismissible-hide]');
+    if (hide) {
+      hide.addEventListener('click', function(event) {
+        event.preventDefault();
+        this.dismiss(options);
+      });
+    }
   }
 
   HTMLElement.prototype.dismiss = function(options) {
