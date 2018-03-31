@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
     '{app,config,lib}/**/*',
     'dismissible_blocks.gemspec',
     'README.md',
+    'CHANGELOG.md',
     'LICENSE.txt'
   ]
 
