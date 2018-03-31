@@ -29,5 +29,5 @@ Push commits & tags to [GitHub](https://github.com/):
     git push origin --follow-tags
 
 
---
-DismissibleBlocks is copyright © 2014 [Patrick Bougie](http://patrickbougie.com/). It is free software and may be redistributed under the terms specified in the LICENSE.text file.
+---
+DismissibleBlocks © 2014 [Patrick Bougie](http://patrickbougie.com/).
