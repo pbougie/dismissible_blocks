@@ -12,6 +12,12 @@ Gem::Specification.new do |s|
   s.description = 'Dismiss HTML blocks and save state in the database. Engine for Ruby on Rails.'
   s.homepage    = 'https://github.com/pbougie/dismissible_blocks'
   s.license     = 'MIT'
+  s.metadata    = {
+    'bug_tracker_uri' => 'https://github.com/pbougie/dismissible_blocks/issues',
+    'changelog_uri'   => 'https://github.com/pbougie/dismissible_blocks/blob/master/CHANGELOG.md',
+    'homepage_uri'    => 'https://github.com/pbougie/dismissible_blocks',
+    'source_code_uri' => 'https://github.com/pbougie/dismissible_blocks',
+  }
 
   s.files = Dir[
     '{app,config,lib}/**/*',
