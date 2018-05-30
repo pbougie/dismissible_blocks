@@ -1,6 +1,6 @@
 class DismissibleBlocksController < ApplicationController
   def create
-    if current_user_available
+    if current_user_available?
       unless current_user.dismissed_blocks.include?(block)
         current_user.dismissed_blocks.push(block)
         current_user.save!
@@ -13,8 +13,8 @@ class DismissibleBlocksController < ApplicationController
 
   private
 
-    def current_user_available
-      respond_to?(:current_user) && current_user.respond_to?(:dismissed_blocks)
+    def current_user_available?
+      current_user && current_user.try(:dismissed_blocks)
     end
 
     def block
