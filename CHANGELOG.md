@@ -1,6 +1,9 @@
 # Changelog
 
 
+## [2.0.4] - 2018-05-30
+- Fix DismissibleBlocksController#current_user_available?
+
 ## [2.0.3] - 2018-03-31
 - Add metadata for [RubyGems.org](https://rubygems.org/).
 - Add CHANGELOG.
